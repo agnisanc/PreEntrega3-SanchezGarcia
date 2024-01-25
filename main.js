@@ -21,6 +21,7 @@ search.addEventListener("input", () => {
 	console.log(search.value)
 	});
 
+
 product.forEach((item) => {
     let div = document.createElement("div");
     div.innerHTML = `
@@ -33,15 +34,20 @@ product.forEach((item) => {
     container.append(div);
 });
 
+// Esta seccion se encarga de realizar el calculo del precio de cada cuota que el usuario abona por el producto seleccionado.
+//Se ha optimizado la seleccion de cuotas a traves de un select para definir las cuotas disponibles, librando al usuario de tener que ingresar el numero cuotas a traves de un input.
+
 function feesCalc() {
     const codeOfProduct = document.getElementById('productCode').value;
     const numberFees = document.getElementById('numberOfFees').value;
-
+    const dateEn = Date();
     const products = product.find(item => item.code === codeOfProduct); 
 
     if (products) {
         const priceByFee = (products.price / numberFees);
-        document.getElementById('resultado').innerText = `El precio por cuota de "${products.name}" es de $${priceByFee}`;
+        document.getElementById('resultado').innerText = `El precio por cuota de "${products.name}" es de $${priceByFee}.
+        Fecha de compra: ${dateEn}
+        Muchas gracias por tu compra!`;
         localStorage.setItem('resultado')
     } else {
         document.getElementById('resultado').innerText = 'Este producto no esta disponible en nuestro catalogo. Por favor, ingresa un codigo valido.';
